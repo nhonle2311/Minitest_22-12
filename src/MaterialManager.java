@@ -1,9 +1,9 @@
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 public class MaterialManager {
     private List<Material> materials;
 
@@ -47,6 +47,10 @@ public class MaterialManager {
         Collections.sort(materials, Comparator.comparingInt(Material::getCost));
     }
 
+
+
+
+
     public void applyDiscounts() {
         LocalDate today = LocalDate.now();
         for (Material material : materials) {
@@ -78,5 +82,29 @@ public class MaterialManager {
             System.out.println("Original amount: " + material.getAmount());
             System.out.println("Discounted amount: " + discountedAmount);
         }
+
     }
+    public void writeMaterialListToFile(String filePath) {
+        try{
+           ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath));
+              oos.writeObject(materials);
+            System.out.println("Write material list to file successfully.");
+            oos.flush();
+            oos.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void readMaterialListFromFile(String filePath) {
+        try {
+            ObjectInputStream oos = new ObjectInputStream(new FileInputStream(filePath));
+            materials = (List<Material>) oos.readObject();
+            System.out.println("Read material list from file successfully.");
+            oos.close();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CrispyFlour extends Material{
+public class CrispyFlour extends Material implements Serializable {
     private int quantity;
 
     public CrispyFlour(){

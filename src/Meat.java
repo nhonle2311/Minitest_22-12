@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Meat extends Material{
+public class Meat extends Material implements Serializable {
     private double weight;
 
     public Meat(){
